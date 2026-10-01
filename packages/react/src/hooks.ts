@@ -1,3 +1,4 @@
+'use client';
 import { useEffect, useMemo, useState } from 'react';
 import {
   createYatmoClient, type Position, type YatmoClient, type YatmoConfiguration, type YatmoSummary, type YatmoSummaryText,

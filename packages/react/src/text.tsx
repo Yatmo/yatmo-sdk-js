@@ -1,11 +1,13 @@
 import type { ReactNode } from 'react';
-import type { Position, YatmoConfiguration, YatmoSummaryText, YatmoTextParagraph } from '@yatmo/sdk';
-import { useYatmoClient, useYatmoText } from './hooks.js';
+import type { Position, YatmoConfiguration, YatmoSummaryText } from '@yatmo/sdk';
+import { ClientNeighbourhoodText } from './client.js';
+import { TextMarkup } from './markup.js';
 
 export interface YatmoNeighbourhoodTextProps {
   /**
    * The text fetched on the server with `@yatmo/sdk` (`client.summaryText(position)`): the
-   * component then renders without any browser request, and search engines index the result.
+   * component then renders without any browser request or client JavaScript, and search engines
+   * index the result. Works in React Server Components.
    */
   text?: YatmoSummaryText | null;
   /** Or fetch in the browser: the frontend key, country, language and the property position. */
@@ -21,7 +23,7 @@ export interface YatmoNeighbourhoodTextProps {
   className?: string;
   /** Shown while the text loads (client mode). */
   fallback?: ReactNode;
-  /** Shown when the request fails (client mode). Receives the error. */
+  /** Shown when the request fails (client mode, from a client component). Receives the error. */
   renderError?: (error: Error) => ReactNode;
 }
 
@@ -30,50 +32,8 @@ export interface YatmoNeighbourhoodTextProps {
  * leisure, nearby cities) as headings and paragraphs, styled by your CSS. Give it `text` from the
  * server for an indexable page, or `client` to fetch in the browser.
  */
-export function YatmoNeighbourhoodText(props: YatmoNeighbourhoodTextProps) {
-  const { text, client, fallback = null, renderError } = props;
-  const yatmo = useYatmoClient(client ?? { key: 'none', country: 'BE' });
-  const query = useYatmoText(text === undefined && client ? yatmo : null, client ? { latitude: client.latitude, longitude: client.longitude } : null);
-  const resolved = text !== undefined ? text : query.data;
-  if (text === undefined && client) {
-    if (query.error) return <>{renderError ? renderError(query.error) : null}</>;
-    if (query.loading || !resolved) return <>{fallback}</>;
-  }
-  if (!resolved) return null;
-  return <TextMarkup {...props} text={resolved} />;
-}
-
-function TextMarkup({ text, heading = 'h3', titles = 'street-city', paragraphs, strong = true, className }: YatmoNeighbourhoodTextProps & { text: YatmoSummaryText }) {
-  const wanted = paragraphs?.map((p) => p.toLowerCase());
-  const selected = wanted?.length ? text.paragraphs.filter((p) => wanted.includes(p.iconId.toLowerCase())) : text.paragraphs;
-  const Heading = heading ?? undefined;
-  return (
-    <div className={['yatmo-text', className].filter(Boolean).join(' ')}>
-      {selected.map((paragraph, index) => (
-        <div key={`${paragraph.iconId}-${index}`} className={`yatmo-text-${paragraph.iconId}`}>
-          {Heading ? <Heading>{titleOf(paragraph, index, titles)}</Heading> : null}
-          {paragraph.sentences.length ? <p>{joinSentences(paragraph.sentences, strong)}</p> : null}
-          {paragraph.items.length ? <ul>{paragraph.items.map((item, i) => <li key={i}>{markersToNodes(item, strong)}</li>)}</ul> : null}
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function titleOf(paragraph: YatmoTextParagraph, index: number, mode: 'street-city' | 'city' | 'generic'): string {
-  if (mode === 'generic') return paragraph.title;
-  if (mode === 'city') return (index === 0 && paragraph.titleCity) || paragraph.title;
-  if (index === 0 && paragraph.titleStreet) return paragraph.titleStreet;
-  if (index === 1 && paragraph.titleCity) return paragraph.titleCity;
-  return paragraph.title;
-}
-
-function joinSentences(sentences: string[], strong: boolean): ReactNode[] {
-  return sentences.flatMap((sentence, i) => (i ? [' ', ...markersToNodes(sentence, strong)] : markersToNodes(sentence, strong)));
-}
-
-/** Turns the `[STRONG]...[/STRONG]` markers of a sentence into `<strong>` elements. */
-export function markersToNodes(sentence: string, strong = true): ReactNode[] {
-  const parts = sentence.trim().split(/\[STRONG\]|\[\/STRONG\]/);
-  return parts.map((part, i) => (i % 2 === 1 && strong ? <strong key={i}>{part}</strong> : part)).filter((p) => p !== '');
+export function YatmoNeighbourhoodText({ text, client, fallback, renderError, ...rest }: YatmoNeighbourhoodTextProps) {
+  if (text !== undefined) return text ? <TextMarkup {...rest} text={text} /> : null;
+  if (client) return <ClientNeighbourhoodText {...rest} client={client} fallback={fallback} renderError={renderError} />;
+  return null;
 }

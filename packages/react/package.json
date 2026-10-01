@@ -1,6 +1,6 @@
 {
   "name": "@yatmo/react",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Add real estate maps, points of interest and neighbourhood data to React applications: YatmoMap, YatmoPois and YatmoNeighbourhoodText components and hooks for property pages, with server rendering support. The official React SDK for Yatmo.",
   "type": "module",
   "main": "./dist/cjs/index.js",
