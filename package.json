@@ -6,9 +6,9 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build --workspaces",
+    "build": "npm run build -w @yatmo/sdk && npm run build -w @yatmo/maps",
     "test": "vitest run",
-    "typecheck": "npm run typecheck --workspaces"
+    "typecheck": "npm run build -w @yatmo/sdk && npm run typecheck -w @yatmo/maps"
   },
   "devDependencies": {
     "typescript": "^5.6.0",
