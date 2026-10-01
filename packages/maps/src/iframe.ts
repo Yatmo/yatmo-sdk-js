@@ -97,8 +97,13 @@ export function createIframe(options: IframeElementOptions): HTMLIFrameElement {
   iframe.loading = 'lazy';
   iframe.setAttribute('allow', 'fullscreen');
   if (options.className) iframe.className = options.className;
-  const height = options.height === undefined ? '560px' : typeof options.height === 'number' ? `${options.height}px` : options.height;
-  iframe.style.cssText = `display:block;width:100%;height:${height};border:0`;
+  // A bare number (number or digits-only string, as from an HTML attribute) is in pixels.
+  const raw = options.height === undefined ? '560px' : String(options.height).trim();
+  const height = /^\d+(\.\d+)?$/.test(raw) ? `${raw}px` : raw;
+  iframe.style.display = 'block';
+  iframe.style.width = '100%';
+  iframe.style.height = height;
+  iframe.style.border = '0';
   return iframe;
 }
 

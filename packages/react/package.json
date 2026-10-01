@@ -1,7 +1,7 @@
 {
-  "name": "@yatmo/sdk",
-  "version": "1.0.1",
-  "description": "Typed client for the Yatmo API: neighbourhood summaries, points of interest, travel times, isochrones, geocoding, routes and static maps for real estate websites. Zero dependency, Node 18+, browsers and edge runtimes.",
+  "name": "@yatmo/react",
+  "version": "1.0.0",
+  "description": "Add real estate maps, points of interest and neighbourhood data to React applications: YatmoMap, YatmoPois and YatmoNeighbourhoodText components and hooks for property pages, with server rendering support. The official React SDK for Yatmo.",
   "type": "module",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
@@ -21,9 +21,6 @@
     "LICENSE",
     "CHANGELOG.md"
   ],
-  "engines": {
-    "node": ">=18"
-  },
   "scripts": {
     "build": "tsc -p tsconfig.json && tsc -p tsconfig.cjs.json && node -e \"require('fs').writeFileSync('dist/cjs/package.json', '{\\\"type\\\":\\\"commonjs\\\"}')\"",
     "typecheck": "tsc -p tsconfig.json --noEmit",
@@ -31,17 +28,18 @@
   },
   "keywords": [
     "yatmo",
+    "react",
+    "react-components",
+    "nextjs",
     "real-estate",
     "proptech",
     "map",
     "poi",
     "points-of-interest",
     "neighbourhood",
+    "property",
+    "listing",
     "isochrone",
-    "travel-time",
-    "geocoding",
-    "routing",
-    "listing-enrichment",
     "seo"
   ],
   "author": "Yatmo (https://yatmo.com)",
@@ -49,13 +47,20 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Yatmo/yatmo-sdk-js.git",
-    "directory": "packages/sdk"
+    "directory": "packages/react"
   },
-  "homepage": "https://documentation.yatmo.com/api",
+  "homepage": "https://documentation.yatmo.com/api/javascript-sdk",
   "bugs": {
     "url": "https://github.com/Yatmo/yatmo-sdk-js/issues"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0"
+  },
+  "dependencies": {
+    "@yatmo/maps": "^1.0.1",
+    "@yatmo/sdk": "^1.0.1"
   }
 }

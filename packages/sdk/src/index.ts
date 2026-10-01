@@ -7,7 +7,7 @@ export {
   type PointsOptions, type IsochroneOptions, type RouteOptions, type StaticMapOptions,
 } from './client.js';
 export { renderSummaryText, sentenceToHtml, stripMarkers, type RenderTextOptions } from './text.js';
-export { pickLanguage, resolveSummaryText } from './models.js';
+export { pickLanguage, resolveSummaryText, summaryFromWire, summaryTextRawFromWire, scoresFromWire, routeFromWire, poiFromWire, placeFromFeature } from './models.js';
 export type {
   Position, LocalizedText, YatmoPoi, YatmoSummary, YatmoSummaryCategory, YatmoSummarySubCategory, YatmoSummaryPlace,
   YatmoTravelData, YatmoCloseCity, YatmoPlaceInformation, YatmoSummaryText, YatmoSummaryTextRaw, YatmoTextParagraph,

@@ -1,0 +1,64 @@
+{
+  "name": "@yatmo/elements",
+  "version": "1.0.0",
+  "description": "Real estate maps, points of interest and neighbourhood text as HTML elements: <yatmo-map>, <yatmo-pois> and <yatmo-text> web components for property pages, with no framework and no build step. Powered by Yatmo.",
+  "type": "module",
+  "main": "./dist/esm/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "unpkg": "./dist/yatmo-elements.js",
+  "jsdelivr": "./dist/yatmo-elements.js",
+  "exports": {
+    ".": {
+      "types": "./dist/esm/index.d.ts",
+      "import": "./dist/esm/index.js"
+    },
+    "./yatmo-elements.js": "./dist/yatmo-elements.js"
+  },
+  "sideEffects": true,
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json && esbuild src/index.ts --bundle --format=esm --minify --target=es2020 --outfile=dist/yatmo-elements.js --banner:js=\"/* @yatmo/elements: real estate maps, POIs and neighbourhood text as HTML elements. https://yatmo.com */\"",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "yatmo",
+    "web-components",
+    "custom-elements",
+    "real-estate",
+    "proptech",
+    "map",
+    "poi",
+    "points-of-interest",
+    "neighbourhood",
+    "property",
+    "listing",
+    "isochrone",
+    "no-framework"
+  ],
+  "author": "Yatmo (https://yatmo.com)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yatmo/yatmo-sdk-js.git",
+    "directory": "packages/elements"
+  },
+  "homepage": "https://documentation.yatmo.com/api/javascript-sdk",
+  "bugs": {
+    "url": "https://github.com/Yatmo/yatmo-sdk-js/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@yatmo/maps": "^1.0.1",
+    "@yatmo/sdk": "^1.0.1"
+  }
+}

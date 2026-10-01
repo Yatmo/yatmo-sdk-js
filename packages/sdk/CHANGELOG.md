@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1
+
+Exports the wire converters (`summaryFromWire`, `summaryTextRawFromWire`, `scoresFromWire`, `routeFromWire`, `poiFromWire`,
+`placeFromFeature`) for callers that fetch the API themselves.
+
 ## 1.0.0
 
 First release: typed client for summary, neighbourhood text (every language or resolved, with HTML, Markdown and plain

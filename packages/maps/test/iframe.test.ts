@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { iframeUrl } from '../src/index.js';
+// createIframe is covered in the elements tests (needs a DOM); a digits-only height becomes pixels there.
 
 const base = { key: 'abc', country: 'BE' as const, latitude: 50.8461, longitude: 4.3664 };
 

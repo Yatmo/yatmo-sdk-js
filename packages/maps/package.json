@@ -1,6 +1,6 @@
 {
   "name": "@yatmo/maps",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The Yatmo browser plugins for real estate websites from npm: typed iframe URL builder, and loaders for the JavaScript map, summary table and neighbourhood text plugins.",
   "type": "module",
   "main": "./dist/cjs/index.js",
@@ -54,6 +54,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@yatmo/sdk": "^1.0.0"
+    "@yatmo/sdk": "^1.0.1"
   }
 }

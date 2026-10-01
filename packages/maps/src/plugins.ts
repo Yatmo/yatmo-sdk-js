@@ -14,7 +14,7 @@ export interface PluginConfigBase {
  * Configuration of the JavaScript map plugin (`map_v3.js`). The known options are typed; any other
  * option of the plugin can be added as is. Reference: https://documentation.yatmo.com/plugins/js-map
  */
-export interface MapConfig extends PluginConfigBase {
+export interface MapConfigKnown extends PluginConfigBase {
   /** Id of the element that receives the map. */
   container: string;
   /** `[longitude, latitude]`. */
@@ -37,8 +37,10 @@ export interface MapConfig extends PluginConfigBase {
     [key: string]: unknown;
   };
   listings?: { items?: unknown[]; shape?: unknown; renderCard?: (item: never, close: () => void) => unknown; [key: string]: unknown };
-  [key: string]: unknown;
 }
+
+/** The known options plus any other option of the plugin. */
+export type MapConfig = MapConfigKnown & { [key: string]: unknown };
 
 /** Configuration of the summary table plugin (`summary.js`). https://documentation.yatmo.com/plugins/js-summary */
 export interface SummaryConfig extends PluginConfigBase {

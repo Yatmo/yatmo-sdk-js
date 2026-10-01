@@ -7,10 +7,14 @@ required. [Documentation](https://documentation.yatmo.com).
 |---|---|---|
 | [`@yatmo/sdk`](packages/sdk) | Typed API client: neighbourhood text (HTML for search engines), summaries, listing enrichment, points of interest, isochrones, routes, geocoding, static maps | Node 18+, browsers, edge (backend key on servers) |
 | [`@yatmo/maps`](packages/maps) | The browser plugins: iframe URL builder, JavaScript map, summary table, neighbourhood text loaders | Browsers (frontend key) |
+| [`@yatmo/elements`](packages/elements) | `<yatmo-map>`, `<yatmo-pois>`, `<yatmo-text>` web components: one script from a CDN, no framework, no build step | Browsers (frontend key) |
+| [`@yatmo/react`](packages/react) | `YatmoMap`, `YatmoPois`, `YatmoNeighbourhoodText` components and hooks; server rendering with data from `@yatmo/sdk` | React 18 and 19 (frontend key in the browser) |
 
 ```bash
-npm install @yatmo/sdk      # server side
-npm install @yatmo/maps     # browser
+npm install @yatmo/sdk        # server side
+npm install @yatmo/maps       # browser
+npm install @yatmo/elements   # any site (or one <script> from a CDN)
+npm install @yatmo/react      # React
 ```
 
 ```ts
@@ -23,7 +27,7 @@ const html = renderSummaryText(await yatmo.summaryText({ latitude: 50.8461, long
 
 ```bash
 npm install
-npm run build       # ESM + CommonJS + types for both packages
+npm run build       # ESM + CommonJS + types for every package (sdk first, the others depend on it)
 npm test            # hermetic tests (fetch is mocked)
 YATMO_LIVE_KEY=... npx vitest run live   # against the real API
 ```
