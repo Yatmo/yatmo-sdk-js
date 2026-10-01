@@ -13,7 +13,9 @@ beforeAll(async () => {
   vi.stubGlobal('fetch', async (input: string | URL) => {
     const url = String(input);
     calls.push(url);
-    const body = url.includes('xx.yatmo.com') ? null : url.includes('/Summary/text') ? SUMMARY_TEXT : url.includes('/summary') ? SUMMARY : null;
+    const body = url.includes('xx.yatmo.com') ? null
+      : url.includes('/geolocation') ? (url.includes('Nowhere') ? { features: [] } : { features: [{ geometry: { coordinates: [4.3664, 50.8461] }, properties: { street: 'Rue de la Loi', housenumber: '16', postcode: '1000', city: 'Brussels' } }] })
+      : url.includes('/Summary/text') ? SUMMARY_TEXT : url.includes('/summary') ? SUMMARY : null;
     return new Response(JSON.stringify(body ?? { Error: 'nope' }), { status: body ? 200 : 404, headers: { 'Content-Type': 'application/json' } });
   });
   await import('../src/index.js');
@@ -50,11 +52,30 @@ describe('<yatmo-map>', () => {
     expect(new URL(el.src).searchParams.get('mode')).toBe('summary-tabs');
   });
 
+  it('locates an address once for every element of the page', async () => {
+    document.body.innerHTML = '<yatmo-config key="abc" country="BE"></yatmo-config><yatmo-map address="Rue de la Loi 16, 1000 Bruxelles"></yatmo-map><yatmo-pois address="rue de la loi 16, 1000 bruxelles"></yatmo-pois>';
+    await tick();
+    await tick();
+    const iframe = document.querySelector('yatmo-map iframe') as HTMLIFrameElement;
+    expect(new URL(iframe.src).searchParams.get('latitude')).toBe('50.8461');
+    expect(new URL(iframe.src).searchParams.get('longitude')).toBe('4.3664');
+    expect(document.querySelector('yatmo-pois h3')?.textContent).toBe('Nursery');
+    expect(calls.filter((u) => u.includes('/geolocation'))).toHaveLength(1);
+    expect(calls[0]).toContain('address=Rue%20de%20la%20Loi%2016%2C%201000%20Bruxelles');
+  });
+
+  it('explains an address Yatmo does not find', async () => {
+    document.body.innerHTML = '<yatmo-map key="abc" country="BE" address="Nowhere 1"></yatmo-map>';
+    await tick();
+    await tick();
+    expect(document.querySelector('yatmo-map .yatmo-notice')?.textContent).toContain('address not found in BE: "Nowhere 1"');
+  });
+
   it('shows a notice when the location or the key is missing', async () => {
     document.body.innerHTML = '<yatmo-map key="k" country="BE"></yatmo-map><yatmo-map latitude="1" longitude="2"></yatmo-map>';
     await tick();
     const notices = [...document.querySelectorAll('yatmo-map .yatmo-notice')].map((n) => n.textContent);
-    expect(notices[0]).toContain('latitude and longitude');
+    expect(notices[0]).toContain('latitude and longitude of the property, or its address');
     expect(notices[1]).toContain('key and a country');
   });
 });

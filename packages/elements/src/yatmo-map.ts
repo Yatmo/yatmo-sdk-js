@@ -1,5 +1,5 @@
 import { createIframe, type IframeElementOptions } from '@yatmo/maps';
-import { positionOf, setting, settingsOf, showNotice } from './shared.js';
+import { locate, settingsOf, showNotice, type Position } from './shared.js';
 
 /**
  * `<yatmo-map latitude="50.8461" longitude="4.3664" mode="overlay" marker="circle" isochrone="right">`
@@ -14,7 +14,7 @@ import { positionOf, setting, settingsOf, showNotice } from './shared.js';
 export class YatmoMapElement extends HTMLElement {
   static get observedAttributes(): string[] {
     return [
-      'key', 'country', 'language', 'latitude', 'longitude', 'mode', 'zoom', 'map-style', 'accent-color', 'marker',
+      'key', 'country', 'language', 'latitude', 'longitude', 'address', 'mode', 'zoom', 'map-style', 'accent-color', 'marker',
       'circle-radius', 'custom-marker-url', 'custom-marker-width', 'custom-marker-height', 'rounded', 'isochrone',
       'route-from', 'summary-background-color', 'summary-line-color', 'user-id', 'start-latitude', 'start-longitude',
       'height', 'title',
@@ -22,6 +22,7 @@ export class YatmoMapElement extends HTMLElement {
   }
 
   private scheduled = false;
+  private requestId = 0;
 
   connectedCallback(): void {
     if (!this.style.display) this.style.display = 'block';
@@ -41,14 +42,21 @@ export class YatmoMapElement extends HTMLElement {
   private schedule(): void {
     if (this.scheduled) return;
     this.scheduled = true;
-    Promise.resolve().then(() => { this.scheduled = false; this.render(); });
+    Promise.resolve().then(() => { this.scheduled = false; void this.render(); });
   }
 
-  private render(): void {
+  private async render(): Promise<void> {
     const settings = settingsOf(this);
-    const position = positionOf(this);
     if (!settings) return showNotice(this, 'give a key and a country, here or on <yatmo-config>.');
-    if (!position) return showNotice(this, 'give the latitude and longitude of the property.');
+    const id = ++this.requestId;
+    let position: Position | null;
+    try {
+      position = await locate(this, settings);
+    } catch (error) {
+      if (id === this.requestId) showNotice(this, error instanceof Error ? error.message : String(error));
+      return;
+    }
+    if (!position || id !== this.requestId) return;
 
     const number = (name: string) => (this.getAttribute(name) ? Number(this.getAttribute(name)) : undefined);
     const text = (name: string) => this.getAttribute(name) || undefined;

@@ -40,7 +40,8 @@ the [iframe plugin](https://documentation.yatmo.com/plugins/iframe) is an attrib
 
 | Attribute | Values |
 |---|---|
-| `latitude`, `longitude` | Property coordinates (required) |
+| `latitude`, `longitude` | Property coordinates |
+| `address` | Instead of the coordinates: the property address, located by Yatmo in the country of the config (one lookup per address and page, shared by the three elements). For no-code pages (Webflow, Wix, Squarespace) that only hold an address |
 | `mode` | `overlay` (default), `overlay-scores`, `map-top`, `map`, `summary`, `summary-tabs` |
 | `zoom` | 7 to 20, default 15 |
 | `map-style` | 1 to 7 |
@@ -60,6 +61,7 @@ as headings and lists styled by your CSS.
 
 | Attribute | Values |
 |---|---|
+| `latitude`, `longitude` or `address` | The property location, as for `<yatmo-map>` |
 | `categories` | `education`, `transport`, `shopping`, `tourism` (default: all) |
 | `mode` | Travel time shown: `walking` (default), `bicycling`, `driving`, `transit` |
 | `limit` | Places per sub-category, default 1 |
@@ -74,6 +76,7 @@ cities), headings and paragraphs with the key places in bold.
 
 | Attribute | Values |
 |---|---|
+| `latitude`, `longitude` or `address` | The property location, as for `<yatmo-map>` |
 | `paragraphs` | Comma-separated among `education`, `shopping`, `publictransports`, `transports`, `tourism`, `cities` |
 | `heading` | `h2` to `h6`, default `h3` |
 | `titles` | `street-city` (default), `city` (never names the street), `generic` |

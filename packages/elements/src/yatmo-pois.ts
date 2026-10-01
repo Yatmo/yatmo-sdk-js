@@ -1,5 +1,5 @@
 import type { YatmoSummary, YatmoTravelMode } from '@yatmo/sdk';
-import { clientFor, positionOf, setting, settingsOf, showNotice } from './shared.js';
+import { clientFor, locate, setting, settingsOf, showNotice } from './shared.js';
 
 /** Category names accepted by the `categories` attribute, mapped to the summary category types. */
 export const CATEGORY_TYPES: Record<string, number> = { education: 1, transport: 2, shopping: 3, tourism: 7 };
@@ -13,7 +13,7 @@ export const CATEGORY_TYPES: Record<string, number> = { education: 1, transport:
  */
 export class YatmoPoisElement extends HTMLElement {
   static get observedAttributes(): string[] {
-    return ['key', 'country', 'language', 'latitude', 'longitude', 'categories', 'mode', 'limit', 'heading'];
+    return ['key', 'country', 'language', 'latitude', 'longitude', 'address', 'categories', 'mode', 'limit', 'heading'];
   }
 
   private scheduled = false;
@@ -35,12 +35,12 @@ export class YatmoPoisElement extends HTMLElement {
 
   private async render(): Promise<void> {
     const settings = settingsOf(this);
-    const position = positionOf(this);
     if (!settings) return showNotice(this, 'give a key and a country, here or on <yatmo-config>.');
-    if (!position) return showNotice(this, 'give the latitude and longitude of the property.');
 
     const id = ++this.requestId;
     try {
+      const position = await locate(this, settings);
+      if (!position || id !== this.requestId) return;
       const summary = await clientFor(settings).summary(position);
       if (id !== this.requestId) return;
       this.replaceChildren(renderPois(summary, {
