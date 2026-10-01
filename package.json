@@ -6,9 +6,9 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build -w @yatmo/sdk && npm run build -w @yatmo/maps && npm run build -w @yatmo/elements && npm run build -w @yatmo/react",
+    "build": "npm run build -w @yatmo/sdk && npm run build -w @yatmo/maps && npm run build -w @yatmo/elements && npm run build -w @yatmo/react && npm run build -w @yatmo/vue",
     "test": "vitest run",
-    "typecheck": "npm run build -w @yatmo/sdk && npm run build -w @yatmo/maps && npm run typecheck -w @yatmo/elements && npm run typecheck -w @yatmo/react"
+    "typecheck": "npm run build -w @yatmo/sdk && npm run build -w @yatmo/maps && npm run typecheck -w @yatmo/elements && npm run typecheck -w @yatmo/react && npm run typecheck -w @yatmo/vue"
   },
   "devDependencies": {
     "typescript": "^5.6.0",
@@ -19,6 +19,8 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0"
+    "@types/react-dom": "^19.0.0",
+    "vue": "^3.5.0",
+    "@vue/test-utils": "^2.4.6"
   }
 }

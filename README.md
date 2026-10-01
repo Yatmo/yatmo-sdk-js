@@ -9,12 +9,14 @@ required. [Documentation](https://documentation.yatmo.com).
 | [`@yatmo/maps`](packages/maps) | The browser plugins: iframe URL builder, JavaScript map, summary table, neighbourhood text loaders | Browsers (frontend key) |
 | [`@yatmo/elements`](packages/elements) | `<yatmo-map>`, `<yatmo-pois>`, `<yatmo-text>` web components: one script from a CDN, no framework, no build step | Browsers (frontend key) |
 | [`@yatmo/react`](packages/react) | `YatmoMap`, `YatmoPois`, `YatmoNeighbourhoodText` components and hooks; server rendering with data from `@yatmo/sdk` | React 18 and 19 (frontend key in the browser) |
+| [`@yatmo/vue`](packages/vue) | The same components and composables for Vue 3 and Nuxt | Vue 3.3+ (frontend key in the browser) |
 
 ```bash
 npm install @yatmo/sdk        # server side
 npm install @yatmo/maps       # browser
 npm install @yatmo/elements   # any site (or one <script> from a CDN)
 npm install @yatmo/react      # React
+npm install @yatmo/vue        # Vue and Nuxt
 ```
 
 ```ts
