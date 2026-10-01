@@ -1,0 +1,61 @@
+{
+  "name": "@yatmo/sdk",
+  "version": "1.0.0",
+  "description": "Typed client for the Yatmo API: neighbourhood summaries, points of interest, travel times, isochrones, geocoding, routes and static maps for real estate websites. Zero dependency, Node 18+, browsers and edge runtimes.",
+  "type": "module",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/esm/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && tsc -p tsconfig.cjs.json && node -e \"require('fs').writeFileSync('dist/cjs/package.json', '{\\\"type\\\":\\\"commonjs\\\"}')\"",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "yatmo",
+    "real-estate",
+    "proptech",
+    "map",
+    "poi",
+    "points-of-interest",
+    "neighbourhood",
+    "isochrone",
+    "travel-time",
+    "geocoding",
+    "routing",
+    "listing-enrichment",
+    "seo"
+  ],
+  "author": "Yatmo (https://yatmo.com)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yatmo/yatmo-sdk-js.git",
+    "directory": "packages/sdk"
+  },
+  "homepage": "https://documentation.yatmo.com/api",
+  "bugs": {
+    "url": "https://github.com/Yatmo/yatmo-sdk-js/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

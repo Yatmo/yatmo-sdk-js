@@ -1,0 +1,17 @@
+{
+  "name": "yatmo-sdk-js",
+  "private": true,
+  "description": "Workspace of the Yatmo JavaScript packages: @yatmo/sdk (API client, isomorphic) and @yatmo/maps (browser plugins).",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "test": "vitest run",
+    "typecheck": "npm run typecheck --workspaces"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  }
+}

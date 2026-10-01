@@ -1,0 +1,59 @@
+{
+  "name": "@yatmo/maps",
+  "version": "1.0.0",
+  "description": "The Yatmo browser plugins for real estate websites from npm: typed iframe URL builder, and loaders for the JavaScript map, summary table and neighbourhood text plugins.",
+  "type": "module",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/esm/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json && tsc -p tsconfig.cjs.json && node -e \"require('fs').writeFileSync('dist/cjs/package.json', '{\\\"type\\\":\\\"commonjs\\\"}')\"",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "yatmo",
+    "real-estate",
+    "proptech",
+    "map",
+    "iframe",
+    "poi",
+    "points-of-interest",
+    "neighbourhood",
+    "isochrone",
+    "travel-time",
+    "listing-search"
+  ],
+  "author": "Yatmo (https://yatmo.com)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yatmo/yatmo-sdk-js.git",
+    "directory": "packages/maps"
+  },
+  "homepage": "https://documentation.yatmo.com/plugins",
+  "bugs": {
+    "url": "https://github.com/Yatmo/yatmo-sdk-js/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@yatmo/sdk": "^1.0.0"
+  }
+}
