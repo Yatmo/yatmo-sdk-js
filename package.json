@@ -1,14 +1,14 @@
 {
   "name": "yatmo-sdk-js",
   "private": true,
-  "description": "Workspace of the Yatmo JavaScript packages: @yatmo/sdk (API client), @yatmo/maps (browser plugins), @yatmo/elements (web components) and @yatmo/react (React components).",
+  "description": "Workspace of the Yatmo JavaScript packages: @yatmo/sdk (API client), @yatmo/maps (browser plugins), @yatmo/elements (web components), @yatmo/react, @yatmo/vue, @yatmo/astro, @yatmo/nuxt and gatsby-plugin-yatmo.",
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build -w @yatmo/sdk && npm run build -w @yatmo/maps && npm run build -w @yatmo/elements && npm run build -w @yatmo/react && npm run build -w @yatmo/vue",
+    "build": "npm run build -w @yatmo/sdk && npm run build -w @yatmo/maps && npm run build -w @yatmo/elements && npm run build -w @yatmo/react && npm run build -w @yatmo/vue && npm run build -w @yatmo/astro && npm run build -w @yatmo/nuxt && npm run build -w gatsby-plugin-yatmo",
     "test": "vitest run",
-    "typecheck": "npm run build -w @yatmo/sdk && npm run build -w @yatmo/maps && npm run typecheck -w @yatmo/elements && npm run typecheck -w @yatmo/react && npm run typecheck -w @yatmo/vue"
+    "typecheck": "npm run build -w @yatmo/sdk && npm run build -w @yatmo/maps && npm run typecheck -w @yatmo/elements && npm run typecheck -w @yatmo/react && npm run typecheck -w @yatmo/vue && npm run typecheck -w @yatmo/astro && npm run build -w gatsby-plugin-yatmo"
   },
   "devDependencies": {
     "typescript": "^5.6.0",

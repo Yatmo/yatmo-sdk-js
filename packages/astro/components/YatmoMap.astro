@@ -1,0 +1,49 @@
+---
+/**
+ * The interactive neighbourhood map of a property (the Yatmo iframe plugin), as the <yatmo-map> element.
+ * Give the coordinates or the address; every other attribute of https://documentation.yatmo.com/plugins/iframe
+ * is a prop. The key, country and language come from the integration (astro.config) unless overridden here.
+ */
+interface Props {
+  latitude?: number | string;
+  longitude?: number | string;
+  address?: string;
+  mode?: 'overlay' | 'overlay-scores' | 'map-top' | 'map' | 'summary' | 'summary-tabs';
+  zoom?: number;
+  mapStyle?: number;
+  accentColor?: string;
+  marker?: 'pin' | 'circle';
+  circleRadius?: number;
+  rounded?: number;
+  isochrone?: 'left' | 'right';
+  routeFrom?: 'left' | 'right' | 'popup';
+  height?: string | number;
+  title?: string;
+  key?: string;
+  country?: string;
+  language?: string;
+  class?: string;
+}
+const { latitude, longitude, address, mode, zoom, mapStyle, accentColor, marker, circleRadius, rounded, isochrone, routeFrom, height = '560px', title, key, country, language, class: className } = Astro.props;
+---
+<yatmo-map
+  latitude={latitude}
+  longitude={longitude}
+  address={address}
+  mode={mode}
+  zoom={zoom}
+  map-style={mapStyle}
+  accent-color={accentColor}
+  marker={marker}
+  circle-radius={circleRadius}
+  rounded={rounded}
+  isochrone={isochrone}
+  route-from={routeFrom}
+  height={typeof height === 'number' ? `${height}px` : height}
+  title={title}
+  key={key}
+  country={country}
+  language={language}
+  class={className}
+  style={`display:block;min-height:${typeof height === 'number' ? `${height}px` : height}`}
+></yatmo-map>

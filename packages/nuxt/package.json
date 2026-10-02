@@ -1,0 +1,68 @@
+{
+  "name": "@yatmo/nuxt",
+  "version": "1.0.0",
+  "description": "Add real estate maps, points of interest and neighbourhood data to Nuxt applications: a module that configures Yatmo from nuxt.config and .env, auto-imports the YatmoMap, YatmoPois and YatmoNeighbourhoodText components and a server-side composable for an indexable neighbourhood text. The official Nuxt module for Yatmo.",
+  "type": "module",
+  "main": "./dist/module.mjs",
+  "types": "./dist/types.d.mts",
+  "exports": {
+    ".": {
+      "types": "./dist/types.d.mts",
+      "import": "./dist/module.mjs"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "nuxt-module-build build",
+    "typecheck": "nuxt-module-build build",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "nuxt",
+    "nuxt-module",
+    "nuxt3",
+    "vue",
+    "yatmo",
+    "real-estate",
+    "proptech",
+    "map",
+    "poi",
+    "points-of-interest",
+    "neighbourhood",
+    "property",
+    "listing",
+    "isochrone",
+    "seo"
+  ],
+  "author": "Yatmo (https://yatmo.com)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yatmo/yatmo-sdk-js.git",
+    "directory": "packages/nuxt"
+  },
+  "homepage": "https://documentation.yatmo.com/api/javascript-sdk",
+  "bugs": {
+    "url": "https://github.com/Yatmo/yatmo-sdk-js/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@nuxt/kit": "^3.10.0 || ^4.0.0",
+    "@yatmo/sdk": "^1.0.1",
+    "@yatmo/vue": "^1.0.0",
+    "defu": "^6.1.4"
+  },
+  "devDependencies": {
+    "@nuxt/module-builder": "^1.0.0",
+    "@nuxt/schema": "^4.0.0",
+    "nuxt": "^4.0.0"
+  }
+}

@@ -10,13 +10,19 @@ required. [Documentation](https://documentation.yatmo.com).
 | [`@yatmo/elements`](packages/elements) | `<yatmo-map>`, `<yatmo-pois>`, `<yatmo-text>` web components: one script from a CDN, no framework, no build step | Browsers (frontend key) |
 | [`@yatmo/react`](packages/react) | `YatmoMap`, `YatmoPois`, `YatmoNeighbourhoodText` components and hooks; server rendering with data from `@yatmo/sdk` | React 18 and 19 (frontend key in the browser) |
 | [`@yatmo/vue`](packages/vue) | The same components and composables for Vue 3 and Nuxt | Vue 3.3+ (frontend key in the browser) |
+| [`@yatmo/astro`](packages/astro) | Integration and components for Astro, with a build-time neighbourhood text | Astro 4+ (frontend key in the browser, backend key at build) |
+| [`@yatmo/nuxt`](packages/nuxt) | Nuxt module: config, auto-imported components, server-side composables | Nuxt 3.10+ and 4 |
+| [`gatsby-plugin-yatmo`](packages/gatsby) | Gatsby plugin: head injection and the React components | Gatsby 4+ |
 
 ```bash
 npm install @yatmo/sdk        # server side
 npm install @yatmo/maps       # browser
 npm install @yatmo/elements   # any site (or one <script> from a CDN)
 npm install @yatmo/react      # React
-npm install @yatmo/vue        # Vue and Nuxt
+npm install @yatmo/vue        # Vue
+npm install @yatmo/nuxt       # Nuxt
+npm install @yatmo/astro      # Astro
+npm install gatsby-plugin-yatmo
 ```
 
 ```ts

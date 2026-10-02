@@ -1,0 +1,34 @@
+---
+/**
+ * The nearest places by category (nursery, school, supermarket, bus stop, station...) with distance and
+ * travel time, as the <yatmo-pois> element: headings and lists rendered in the browser, styled by your CSS.
+ */
+interface Props {
+  latitude?: number | string;
+  longitude?: number | string;
+  address?: string;
+  /** Among education, transport, shopping, tourism. */
+  categories?: string | string[];
+  mode?: 'walking' | 'bicycling' | 'driving' | 'transit';
+  limit?: number;
+  heading?: 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  key?: string;
+  country?: string;
+  language?: string;
+  class?: string;
+}
+const { latitude, longitude, address, categories, mode, limit, heading, key, country, language, class: className } = Astro.props;
+---
+<yatmo-pois
+  latitude={latitude}
+  longitude={longitude}
+  address={address}
+  categories={Array.isArray(categories) ? categories.join(',') : categories}
+  mode={mode}
+  limit={limit}
+  heading={heading}
+  key={key}
+  country={country}
+  language={language}
+  class={className}
+></yatmo-pois>

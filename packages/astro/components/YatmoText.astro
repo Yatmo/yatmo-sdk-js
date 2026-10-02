@@ -1,0 +1,32 @@
+---
+/**
+ * The neighbourhood text fetched in the browser, as the <yatmo-text> element. For text that is part of
+ * the built HTML (search engines), use YatmoNeighbourhoodText instead.
+ */
+interface Props {
+  latitude?: number | string;
+  longitude?: number | string;
+  address?: string;
+  /** Among education, shopping, publictransports, transports, tourism, cities. */
+  paragraphs?: string | string[];
+  heading?: 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  titles?: 'street-city' | 'city' | 'generic';
+  key?: string;
+  country?: string;
+  language?: string;
+  class?: string;
+}
+const { latitude, longitude, address, paragraphs, heading, titles, key, country, language, class: className } = Astro.props;
+---
+<yatmo-text
+  latitude={latitude}
+  longitude={longitude}
+  address={address}
+  paragraphs={Array.isArray(paragraphs) ? paragraphs.join(',') : paragraphs}
+  heading={heading}
+  titles={titles}
+  key={key}
+  country={country}
+  language={language}
+  class={className}
+></yatmo-text>

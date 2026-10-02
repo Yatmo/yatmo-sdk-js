@@ -1,0 +1,55 @@
+{
+  "name": "gatsby-plugin-yatmo",
+  "version": "1.0.0",
+  "description": "Add real estate maps, points of interest and neighbourhood data to Gatsby sites: the plugin loads the Yatmo web components and declares your key once, and re-exports the YatmoMap, YatmoPois and YatmoNeighbourhoodText React components for property pages. The official Gatsby plugin for Yatmo.",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "gatsby-node.js",
+    "gatsby-ssr.js",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "node --check gatsby-ssr.js && node --check gatsby-node.js && node --check index.js",
+    "typecheck": "npm run build"
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "react",
+    "yatmo",
+    "real-estate",
+    "proptech",
+    "map",
+    "poi",
+    "points-of-interest",
+    "neighbourhood",
+    "property",
+    "listing",
+    "seo"
+  ],
+  "author": "Yatmo (https://yatmo.com)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yatmo/yatmo-sdk-js.git",
+    "directory": "packages/gatsby"
+  },
+  "homepage": "https://documentation.yatmo.com/api/javascript-sdk",
+  "bugs": {
+    "url": "https://github.com/Yatmo/yatmo-sdk-js/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "gatsby": ">=4.0.0",
+    "react": ">=18.0.0"
+  },
+  "dependencies": {
+    "@yatmo/react": "^1.0.1",
+    "@yatmo/sdk": "^1.0.1"
+  }
+}

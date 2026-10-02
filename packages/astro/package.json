@@ -1,0 +1,66 @@
+{
+  "name": "@yatmo/astro",
+  "version": "1.0.0",
+  "description": "Add real estate maps, points of interest and neighbourhood data to Astro sites: an integration plus YatmoMap, YatmoPois, YatmoText and a build-time YatmoNeighbourhoodText component for property pages, indexable by search engines. The official Astro integration for Yatmo.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./components": "./components/index.ts",
+    "./components/*": "./components/*"
+  },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "components",
+    "src",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "astro-integration",
+    "astro-component",
+    "withastro",
+    "seo",
+    "yatmo",
+    "real-estate",
+    "proptech",
+    "map",
+    "poi",
+    "points-of-interest",
+    "neighbourhood",
+    "property",
+    "listing",
+    "isochrone"
+  ],
+  "author": "Yatmo (https://yatmo.com)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yatmo/yatmo-sdk-js.git",
+    "directory": "packages/astro"
+  },
+  "homepage": "https://documentation.yatmo.com/api/javascript-sdk",
+  "bugs": {
+    "url": "https://github.com/Yatmo/yatmo-sdk-js/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "astro": ">=4.0.0"
+  },
+  "dependencies": {
+    "@yatmo/sdk": "^1.0.1"
+  }
+}

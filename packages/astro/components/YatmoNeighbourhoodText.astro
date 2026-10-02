@@ -1,0 +1,53 @@
+---
+/**
+ * The neighbourhood text rendered at build time (or on the server in SSR): plain headings and paragraphs
+ * in the page HTML, indexed by search engines. Uses your BACKEND key, read from the YATMO_KEY environment
+ * variable (never shipped to the browser), and the country from YATMO_COUNTRY unless given as props.
+ *
+ *   <YatmoNeighbourhoodText latitude={50.8461} longitude={4.3664} language="FR" titles="city" />
+ */
+import { createYatmoClient, renderSummaryText, type RenderTextOptions } from '@yatmo/sdk';
+
+interface Props {
+  latitude?: number | string;
+  longitude?: number | string;
+  /** Located by Yatmo in the country, when there are no coordinates. */
+  address?: string;
+  /** Backend key; default import.meta.env.YATMO_KEY. */
+  key?: string;
+  /** Default import.meta.env.YATMO_COUNTRY, then BE. */
+  country?: string;
+  /** Default import.meta.env.YATMO_LANGUAGE, then EN. */
+  language?: string;
+  paragraphs?: string[];
+  heading?: RenderTextOptions['heading'];
+  titles?: RenderTextOptions['titles'];
+  strong?: boolean;
+  class?: string;
+}
+
+const env = (import.meta as unknown as { env: Record<string, string | undefined> }).env ?? {};
+const { latitude, longitude, address, key = env.YATMO_KEY, country = env.YATMO_COUNTRY ?? 'BE', language = env.YATMO_LANGUAGE ?? 'EN', paragraphs, heading, titles, strong, class: className } = Astro.props;
+
+let html = '';
+if (!key) {
+  console.warn('@yatmo/astro: YatmoNeighbourhoodText needs a backend key (prop key or YATMO_KEY).');
+} else {
+  try {
+    const client = createYatmoClient({ key, country: country.toUpperCase() as never, language: language.toUpperCase() as never });
+    let position = latitude !== undefined && longitude !== undefined ? { latitude: Number(latitude), longitude: Number(longitude) } : null;
+    if (!position && address) {
+      const places = await client.geocode(address);
+      position = places[0] ? { latitude: places[0].latitude, longitude: places[0].longitude } : null;
+    }
+    if (position) {
+      html = renderSummaryText(await client.summaryText(position), { paragraphs, heading, titles, strong, class: className });
+    } else {
+      console.warn('@yatmo/astro: YatmoNeighbourhoodText needs latitude and longitude, or an address Yatmo can locate.');
+    }
+  } catch (error) {
+    console.warn('@yatmo/astro: neighbourhood text unavailable:', error instanceof Error ? error.message : error);
+  }
+}
+---
+{html && <Fragment set:html={html} />}
